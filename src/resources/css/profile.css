@@ -1,0 +1,40 @@
+.profileWrapper {
+    margin: 0 0 70% auto;
+    padding: 2rem;
+    width: 100%;
+}
+
+.profileWrapper h2 {
+    flex-basis: 25%;
+    font: inherit/inherit;
+    font-weight: normal;
+    margin: 0;
+}
+
+.profileWrapper span {
+    flex-basis: 25%;
+    margin-left: 1.5rem;
+}
+
+.profileWrapper p {
+    align-items: center;
+    display: flex;
+    margin: 0;
+    padding: .5rem 0;
+}
+
+.profileWrapper p:not(:last-child) {
+    border-bottom: 1px solid black;
+}
+
+.button {
+    background-color: #FF8080;
+    border: 2px solid #FF8080;
+    border-radius: 5px;
+    color: white;
+    padding: .3rem;
+}
+
+a.button:not(:first-child) {
+    margin: auto;
+}

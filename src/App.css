@@ -1,22 +1,50 @@
-.App {
-  text-align: center;
+html {
+  margin: 0;
+  padding: 0;
 }
 
-.App-logo {
-  height: 40vmin;
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+#root {
+  align-items: flex-start;
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  flex-wrap: wrap;
+  height: 100vh;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  width: 100vw;
+}
+
+#loadingPage {
+  background-color: #66cc66;
   color: white;
 }
 
-.App-link {
-  color: #09d3ac;
+img {
+  height: 2rem;
+  width: 2rem;
+}
+
+section {
+  text-align: center;
+}
+
+#homePageList {
+  display: flex;
+  flex-direction: column;
+}
+
+#homePageList a {
+  margin: 0 10px 25px;
+  padding: 10px 0
+}
+
+#homePageList span {
+  margin: 0;
+}
+
+#giftcardsList {
+  background-color: #66CC66;
+  color: white;
+}
+#rewardsList {
+  background-color: #FFBA80;
+  color: white;
 }

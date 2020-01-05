@@ -1,0 +1,12 @@
+table {
+    border: 2px solid #4D9999;
+    border-spacing: 0;
+    text-align: center;
+    width: 90%;
+}
+
+th,
+tbody tr:nth-child(even) {
+    background-color: rgba(77, 153, 153, .7);
+    color: white;
+}

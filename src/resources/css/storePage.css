@@ -1,0 +1,93 @@
+h2 {
+    font-size: inherit;
+}
+
+a {
+    color: inherit;
+    display: block;
+    text-decoration: none;
+}
+
+input {
+    border-radius: 5px;
+    padding: .5rem;
+    text-align: center;
+}
+
+input,
+label {
+    box-sizing: border-box;
+}
+
+.pageWrapper {
+    display: flex;
+    flex-direction: column;
+    height: 70vh;
+    text-align: center;
+}
+
+.button {
+    border-radius: 5px;
+    color: white;
+    margin: .5rem;
+    padding: .7rem .3rem;
+}
+
+#logButton,
+#modalButton {
+    background-color: #66CC66;
+    border: 2px solid #66CC66;
+}
+
+#transactionButton {
+    background-color: #FF8080;
+    border: 2px solid #FF8080;
+}
+
+#barcode,
+#transactionButton {
+    align-self: center;
+    margin-bottom: 50%;
+}
+
+#modal {
+    background-color: rgba(0, 0, 0, .6);
+    bottom: 0;
+    display: none;
+    left: 0;
+    position: fixed;
+    right: 0;
+    top: 0;
+    z-index: 1000;
+}
+
+#modalWrapper {
+    background-color: white;
+    margin: 40vh 15vw 0;
+    padding: 2rem 0;
+}
+
+#modalWrapper a {
+    margin-top: 1rem;
+}
+
+#modalWrapper input {
+    margin: 1rem 0;
+    width: 75%;
+}
+
+#modalButton {
+    border-radius: 5px;
+    color: white;
+    padding: .3rem .7rem;
+    width: 50%;
+}
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none;
+}
+
+input[type='number'] {
+    -moz-appearance:textfield;
+}

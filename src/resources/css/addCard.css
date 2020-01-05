@@ -1,0 +1,23 @@
+input,
+label,
+select {
+    margin-bottom: .5rem;
+    width: 100%;
+}
+
+input[type=submit] {
+    background-color: #66CC66;
+    border-radius: 5px;
+    border: none;
+    color: white;
+    font-size: 1rem;
+    padding: .7rem;
+}
+
+form,
+.formWrapper {
+    align-items: stretch;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}

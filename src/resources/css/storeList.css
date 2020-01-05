@@ -1,0 +1,17 @@
+section {
+    width: 100%;
+}
+
+.storeWrapper {
+    margin: .8rem;
+    padding: .8rem 1rem;
+    width: 100%;
+}
+
+.storeWrapper a {
+    align-items: center;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+}

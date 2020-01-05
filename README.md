@@ -1,3 +1,7 @@
+To start dev:
+### npm start
+### node db.js in src/database
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
