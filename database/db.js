@@ -1,13 +1,16 @@
 const express = require('express'),
+      expressSession = require('express-session'),
       mongoose = require('mongoose'),
       bodyParser = require('body-parser'),
+      passport = require('passport'),
+      LocalStrategy = require('passport-local'),
       app = express(),
+      User = require('./models/user'),
       indexRoutes = require('./routes/index'),
       cardRoutes = require('./routes/cards');
 require('dotenv').config();
 
 //Connect to MongoDB server
-//TODO move password to env variable
 mongoose.connect(process.env.ATLAS_URI, {
     useNewUrlParser: true,
     useCreateIndex: true,
@@ -22,6 +25,19 @@ mongoose.connect(process.env.ATLAS_URI, {
 app.use(bodyParser.urlencoded({extended: true}));
 mongoose.set('useFindAndModify', false);
 
+//Passport authentication settings
+app.use(expressSession({
+  secret: process.env.SESSION_SECRET,
+  resave: false,
+  saveUninitialized: false
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
 //Use Express Router for route paths
 app.use((req, res, next) => {
     res.header(
@@ -35,6 +51,10 @@ app.use((req, res, next) => {
     res.header(
       "Access-Control-Allow-Methods",
       "GET,PUT,DELETE"
+    );
+    res.header(
+      "Access-Control-Allow-Credentials",
+      "true"
     );
     next();
   });

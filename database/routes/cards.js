@@ -1,13 +1,13 @@
 const express = require('express'),
 	  router = express.Router(),
-	  User = require('../models/user'),
 	  Giftcard = require('../models/giftcard'),
-	  RewardsCard = require('../models/rewardsCard');
+	  RewardsCard = require('../models/rewardsCard'),
+	  middleware = require('../middleware/index');
 
 // TODO change routes to be '/cards/....'?
 //Giftcards Routes
 	//Index
-router.get("/cards/giftcards", function(req,res) {
+router.get("/cards/giftcards", middleware.isLoggedIn, function(req,res) {
 	Giftcard.find({}, function(err, allGiftcards) {
 		if(err) {
 			console.log("Giftcard find error: ", err)
@@ -18,7 +18,7 @@ router.get("/cards/giftcards", function(req,res) {
 });
 
 	//Show single card info
-router.get("/cards/giftcards/:id", function(req, res) {
+router.get("/cards/giftcards/:id", middleware.isLoggedIn, function(req, res) {
 	Giftcard.findById(req.params.id, function(err, giftcard) {
 		if(err) {
 			console.log("Find card Express error: ", err)
@@ -29,7 +29,7 @@ router.get("/cards/giftcards/:id", function(req, res) {
 });
 	
 	//Add transaction
-router.put("/cards/giftcards/:id", function(req, res) {
+router.put("/cards/giftcards/:id", middleware.isLoggedIn, function(req, res) {
 	const date = new Date();
 	date.setHours(0,0,0,0);
 
@@ -49,7 +49,7 @@ router.put("/cards/giftcards/:id", function(req, res) {
 });
 
 	//Show transactions
-router.get("/cards/giftcards/:id/transactions", function(req, res) {
+router.get("/cards/giftcards/:id/transactions", middleware.isLoggedIn, function(req, res) {
 	Giftcard.findById(req.params.id, function(err, giftcard) {
 		if(err) {
 			console.log("Transactions query error: ", err)
@@ -62,7 +62,7 @@ router.get("/cards/giftcards/:id/transactions", function(req, res) {
 });
 
 	//Edit and Update
-router.put("/cards/:cardType/:id/edit", function(req, res) {
+router.put("/cards/:cardType/:id/edit", middleware.isLoggedIn, function(req, res) {
 	if(req.params.cardType === 'giftcards') {
 		const card = {
 			storeName: req.body.storeName,
@@ -95,13 +95,8 @@ router.put("/cards/:cardType/:id/edit", function(req, res) {
 	}
 });
 
-router.put("/giftcards/:id", function(req, res) {
-	res.send("Update DB then back to store page");
-});
-
-	//Destroy
-router.delete("/cards/:cardType/:id/delete", function(req, res) {
-	console.log("delete route. ", req.params.id);
+//Destroy
+router.delete("/cards/:cardType/:id/delete", middleware.isLoggedIn, function(req, res) {
 	if(req.body.cardType === 'giftcard') {
 		Giftcard.findByIdAndRemove(req.params.id, function(err) {
 			if(err) {
@@ -124,7 +119,7 @@ router.delete("/cards/:cardType/:id/delete", function(req, res) {
 
 //Rewards card routes
 	//Index
-router.get("/cards/rewards", function(req, res) {
+router.get("/cards/rewards", middleware.isLoggedIn, function(req, res) {
 	RewardsCard.find({}, function(err, allRewardsCards) {
 		if(err) {
 			console.log("Rewards card find error: ", err)
@@ -134,27 +129,8 @@ router.get("/cards/rewards", function(req, res) {
 	});
 });
 
-	//Show
-router.get("/rewards/:id", function(req,res) {
-	res.send("View store page");
-});
-
-	//Edit and Update
-router.get("/rewards/:id/edit", function(req, res) {
-	res.send("Edit rewards card page");
-});
-
-router.put("/rewards/:id", function(req, res) {
-	res.send("Update DB then back to store page");
-});
-
-	//Destroy
-router.delete("/rewards/:id", function(req, res) {
-	res.send("Delete rewards card from DB");
-});
-
 //Show all cards
-router.get("/cards", async function(req, res) {
+router.get("/cards", middleware.isLoggedIn, async function(req, res) {
 	const data = {
 		giftcards: [],
 		rewardsCards: []
@@ -182,7 +158,7 @@ router.get("/cards", async function(req, res) {
 });
 
 //Create new card
-router.post("/cards", function(req, res) {
+router.post("/cards", middleware.isLoggedIn, function(req, res) {
 	let newCard = {
 		username: req.body.username,
 		cardType: req.body.cardType,

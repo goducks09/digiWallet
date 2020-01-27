@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 
 const giftcardSchema = new mongoose.Schema({
+	userID: {type: mongoose.Schema.Types.ObjectId, ref: "User"},
 	storeName: String,
 	amount: Number,
 	balance: Number,

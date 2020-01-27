@@ -1,25 +1,33 @@
 const express = require('express'),
 	  router = express.Router(),
-	  User = require('../models/user');
-
-//Routes
+	  passport = require('passport'),
+	  User = require('../models/user'),
+	  middleware = require('../middleware/index');
 
 router.post('/register', function(req, res) {
-	let newUser = {username: req.body.username, password: req.body.password};
-	User.create(newUser, function(err, user) {
+	let newUser = {username: req.body.username};
+	User.register(newUser, req.body.password, function(err, user) {
 		if(err) {
 			console.log(err.errmsg);
-		} else {
-			res.send("Success!");
 		}
+
+		passport.authenticate('local')(req, res, function() {
+			res.json(user)
+		});
 	});
 });
 
-// router.get('/login', function(req, res) {
-// 	if(err) {
-// 		console.log(err);
-// 	} else {
-// 	}
-// });
+router.post('/login', passport.authenticate('local'), function (req, res) {
+	res.json(req.user);
+});
+
+router.get('/authenticate', middleware.isLoggedIn, function(req, res) {
+	res.json(req.user);
+});
+
+router.get('/logout', middleware.isLoggedIn, function(req, res) {
+	req.logout();
+	res.sendStatus(200);
+});
 
 module.exports = router;
