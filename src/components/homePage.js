@@ -1,10 +1,11 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
+import {withUserContext} from '../components/wrappers/componentWrappers';
 import Navbar from './navbar/navbar';
 
-export default class Homepage extends Component {
-    constructor() {
-        super();
+class Homepage extends Component {
+    constructor(props) {
+        super(props);
         this.state = {
             giftcards: [],
             rewardsCards: [],
@@ -14,9 +15,19 @@ export default class Homepage extends Component {
     }
 
     componentDidMount() {
-        fetch('http://localhost:5000/cards')
-        .then(res => res.json())
-        .catch(err => console.log("Server error: ", err))
+        fetch('http://localhost:5000/cards', {
+            credentials: "include"
+        })
+        .then(res => {
+            if(res.status === 403) {
+                throw new Error("You must login");
+            };
+            return res.json();
+        })
+        .catch(err => {
+            console.log("Server error: ", err);
+            this.props.history.push('/login');
+        })
         .then(data => {
             const numberGiftcards = data.giftcards.length;
             const numberRewards = data.rewardsCards.length;
@@ -75,3 +86,5 @@ export default class Homepage extends Component {
         }
     };
 }
+
+export default withUserContext(Homepage);

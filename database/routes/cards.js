@@ -4,7 +4,7 @@ const express = require('express'),
 	  RewardsCard = require('../models/rewardsCard'),
 	  middleware = require('../middleware/index');
 
-// TODO change routes to be '/cards/....'?
+
 //Giftcards Routes
 	//Index
 router.get("/cards/giftcards", middleware.isLoggedIn, function(req,res) {
@@ -136,7 +136,7 @@ router.get("/cards", middleware.isLoggedIn, async function(req, res) {
 		rewardsCards: []
 	};
 
-	const findGCs = Giftcard.find({}, function(err, allGiftcards) {
+	const findGCs = Giftcard.find({userID: req.user._id}, function(err, allGiftcards) {
 		if(err) {
 			console.log("Giftcard query error: ", err)
 		} else {
@@ -144,7 +144,7 @@ router.get("/cards", middleware.isLoggedIn, async function(req, res) {
 		}
 	});
 
-	const findRewards = RewardsCard.find({}, function(err, allRewardsCards) {
+	const findRewards = RewardsCard.find({userID: req.user._id}, function(err, allRewardsCards) {
 		if(err) {
 			console.log("Rewards query error: ", )
 		} else {
@@ -160,13 +160,14 @@ router.get("/cards", middleware.isLoggedIn, async function(req, res) {
 //Create new card
 router.post("/cards", middleware.isLoggedIn, function(req, res) {
 	let newCard = {
-		username: req.body.username,
+		userID: req.body.userID,
 		cardType: req.body.cardType,
 		storeName: req.body.storeName,
 		amount: req.body.amount,
 		balance: req.body.balance,
 		barcode: req.body.barcode,
-		pin: req.body.pin
+		pin: req.body.pin,
+		storeColor: req.body.storeColor
 	};
 
 	if(newCard.cardType === "giftcard") {

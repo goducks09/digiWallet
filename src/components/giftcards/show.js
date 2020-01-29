@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
+import {withUserContext} from '../wrappers/componentWrappers';
 import Navbar from '../navbar/navbar';
 import '../../resources/css/storePage.css';
 
-export default class StorePage extends Component {
+class StorePage extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -42,6 +43,7 @@ export default class StorePage extends Component {
             await fetch(`http://localhost:5000/cards/giftcards/${this.state.cardInfo._id}`, {
                 method: 'PUT',
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                credentials: "include",
                 body: transaction
             }).catch(err => {
                 console.log("Error: ", err);
@@ -49,7 +51,9 @@ export default class StorePage extends Component {
             });
 
             const get =
-                await fetch(`http://localhost:5000/cards/giftcards/${this.state.cardInfo._id}`)
+                await fetch(`http://localhost:5000/cards/giftcards/${this.state.cardInfo._id}`, {
+                    credentials: "include"
+                })
                 .catch(err => console.log("Error: ", err));
             const data = await get.json();
 
@@ -72,10 +76,10 @@ export default class StorePage extends Component {
     }
 
     handleDelete() {
-        console.log("delete");
         fetch(`http://localhost:5000/cards/${this.state.cardType}s/${this.state.cardInfo._id}/delete`, {
             method: 'DELETE',
             headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+            credentials: 'include',
             body: `cardType=${this.state.cardType}`
         }).then( res => {
             if(!res.ok) {
@@ -101,17 +105,19 @@ export default class StorePage extends Component {
                     </div>
                 </div>
 
-                <img id="barcodeImg" alt="barcode" src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.ytimg.com%2Fvi%2FxBpUxaFR2zs%2Fhqdefault.jpg&f=1&nofb=1"></img>
-                <p id="barcode">
-                    {this.state.cardInfo.barcode}
-                </p>
+                <div id="barcode">
+                    <img id="barcodeImg" alt="barcode" src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.ytimg.com%2Fvi%2FxBpUxaFR2zs%2Fhqdefault.jpg&f=1&nofb=1"></img>
+                    <p>
+                        {this.state.cardInfo.barcode}
+                    </p>
+                </div>
 
                 {
                     this.state.cardType === 'giftcard' &&
                     <React.Fragment>
-                        <p id="balance">
+                        <h2 id="balance">
                             Remaining Balance: ${this.state.cardInfo.balance}
-                        </p>
+                        </h2>
                         <button onClick={this.handleModal} id="logButton" className="button"><h2>Log Purchase</h2></button>
                         <Link to={`/cards/giftcards/${this.state.cardInfo._id}/transactions`}>
                             <h2 id="transactionButton" className="button">Transaction History</h2>
@@ -129,3 +135,5 @@ export default class StorePage extends Component {
         );
     }
 }
+
+export default withUserContext(StorePage);

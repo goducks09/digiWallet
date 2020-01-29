@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
+import {withUserContext} from '../wrappers/componentWrappers';
 import Navbar from '../navbar/navbar';
 import '../../resources/css/storeList.css';
 
-export default class StoreList extends Component {
+class StoreList extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -43,7 +44,9 @@ export default class StoreList extends Component {
     // }
 
     componentDidMount() {
-        fetch('http://localhost:5000/cards')
+        fetch('http://localhost:5000/cards', {
+            credentials: "include"
+        })
         .then(res => res.json())
         .catch(err => console.log("Server error: ", err))
         .then(data => {
@@ -65,9 +68,9 @@ export default class StoreList extends Component {
 
                     this.state.giftcards.map(card => {
                         return (
-                            <div className="storeWrapper" style={{'background-color':card.storeColor}}>
+                            <div className="storeWrapper" style={card.storeColor ? {'backgroundColor':card.storeColor} : {'backgroundColor':'#FFBA80'}}>
                                 <Link to={{pathname: `/cards/giftcards/${card._id}`, state: {cardInfo: card, cardType: 'giftcard'}}}>
-                                    <img src={card.logo} alt="Store logo"></img>
+                                    {card.logo ? <img src={card.logo} alt="Store logo"></img> : <span>Logo unavailable</span>}
                                     <h2>{card.storeName}</h2>
                                     <span>${card.balance}</span>
                                 </Link>
@@ -79,9 +82,9 @@ export default class StoreList extends Component {
 
                     this.state.rewardsCards.map(card => {
                         return (
-                            <div className="storeWrapper" style={{'background-color':card.storeColor}}>
+                            <div className="storeWrapper" style={card.storeColor ? {'backgroundColor':card.storeColor} : {'backgroundColor':'#FFBA80'}}>
                                 <Link to={{pathname: `/cards/rewards/${card._id}`, state: {cardInfo: card, cardType: 'rewardsCard'}}}>
-                                    <img src={card.logo} alt="Store logo"></img>
+                                    {card.logo ? <img src={card.logo} alt="Store logo"></img> : <span>Logo unavailable</span>}
                                     <h2>{card.storeName}</h2>
                                 </Link>
                             </div>
@@ -92,3 +95,5 @@ export default class StoreList extends Component {
         );
     }
 }
+
+export default withUserContext(StoreList);

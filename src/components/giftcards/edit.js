@@ -24,7 +24,6 @@ export default class EditCard extends Component {
     }
 
 
-    //TODO santize input
     handleInputChange(e) {
         const value = e.target.value;
         const name = e.target.name;
@@ -65,17 +64,17 @@ export default class EditCard extends Component {
             
             card += `&amount=${this.state.cardInfo.amount}&balance=${newBalance}&pin=${this.state.cardInfo.pin}`;
         }
-
+        
         fetch(`http://localhost:5000/cards/${type}/${this.state.cardInfo._id}/edit`, {
             method: 'PUT',
             headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+            credentials: 'include',
             body: card
         }).then( res => {
             if(!res.ok) {
                 console.log("Error: ", res.status);
                 this.props.history.push(`/cards/${type}/${this.state.cardInfo._id}/edit`);
             } else {
-                console.log(res);
                 this.props.history.push({pathname:`/cards/${type}/${this.state.cardInfo._id}`, state: {cardInfo: this.state.cardInfo, cardType: this.state.cardType}});
             }
         });

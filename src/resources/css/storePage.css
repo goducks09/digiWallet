@@ -23,6 +23,7 @@ label {
     display: flex;
     flex-direction: column;
     height: 70vh;
+    max-width: 67%;
     text-align: center;
 }
 
@@ -39,6 +40,15 @@ label {
     border: 2px solid #66CC66;
 }
 
+#logButton {
+    font-size: inherit;
+}
+
+#logButton h2 {
+    font-size: inherit;
+    margin: 0;
+}
+
 #transactionButton {
     background-color: #FF8080;
     border: 2px solid #FF8080;
@@ -47,7 +57,19 @@ label {
 #barcode,
 #transactionButton {
     align-self: center;
-    margin-bottom: 50%;
+}
+
+#barcode {
+    margin-bottom: 5%;
+}
+
+#barcodeImg {
+    height: auto;
+    width: 25%;
+}
+
+#barcode p {
+    margin: 0;
 }
 
 #modal {

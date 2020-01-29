@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
+import {withUserContext} from '../wrappers/componentWrappers';
 import Navbar from '../navbar/navbar';
 import '../../resources/css/transactions.css';
 
-export default class Transactions extends Component {
+class Transactions extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -13,7 +14,9 @@ export default class Transactions extends Component {
     }
 
     componentDidMount() {
-        fetch(`http://localhost:5000/cards/giftcards/${this.props.match.params.id}/transactions`)
+        fetch(`http://localhost:5000/cards/giftcards/${this.props.match.params.id}/transactions`, {
+            credentials: "include"
+        })
         .then(res => res.json())
         .catch(err => console.log("Server error: ", err))
         .then(data => {
@@ -68,3 +71,5 @@ export default class Transactions extends Component {
         );
     }
 }
+
+export default withUserContext(Transactions);

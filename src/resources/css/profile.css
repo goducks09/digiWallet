@@ -9,6 +9,7 @@
     font: inherit/inherit;
     font-weight: normal;
     margin: 0;
+    text-align: left;
 }
 
 .profileWrapper span {
@@ -16,14 +17,14 @@
     margin-left: 1.5rem;
 }
 
-.profileWrapper p {
+.profileWrapper section {
     align-items: center;
     display: flex;
     margin: 0;
     padding: .5rem 0;
 }
 
-.profileWrapper p:not(:last-child) {
+.profileWrapper section:not(:last-child) {
     border-bottom: 1px solid black;
 }
 
@@ -37,4 +38,11 @@
 
 a.button:not(:first-child) {
     margin: auto;
+}
+
+@media screen and (min-width: 900px) {
+    .profileWrapper {
+        margin: auto;
+        max-width: 75%;
+    }
 }

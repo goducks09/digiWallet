@@ -15,3 +15,7 @@ section {
     justify-content: space-between;
     text-align: center;
 }
+
+.storeWrapper span {
+    font-weight: bold;
+}

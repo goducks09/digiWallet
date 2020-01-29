@@ -1,19 +1,20 @@
 import React, {Component} from 'react';
-import { withRouter } from "react-router-dom";
-import '../resources/css/addCard.css';
-import Navbar from './navbar/navbar';
+import { withRouter } from 'react-router-dom';
+import {withUserContext} from '../../components/wrappers/componentWrappers';
+import '../../resources/css/addCard.css';
+import Navbar from '../navbar/navbar';
 
 class Register extends Component {
-    constructor() {
-        super();
-
-        this.handleSubmit = this.handleSubmit.bind(this);
-        this.handleInputChange = this.handleInputChange.bind(this);
-
+    constructor(props) {
+        super(props);
+        
         this.state = {
             username: '',
             password: ''
         }
+
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleInputChange = this.handleInputChange.bind(this);
     }
 
     handleInputChange(e) {
@@ -33,16 +34,19 @@ class Register extends Component {
         fetch('http://localhost:5000/register',{
             method: 'POST',
             headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+            credentials: "include",
             body: user
         })
         .then( res => {
             if(!res.ok) {
                 console.log("Error: ", res.status);
                 this.props.history.push('/register');
-            } else {
-                console.log(res);
-                this.props.history.push('/cards');
             }
+            return res.json();
+        })
+        .then( data => {
+                this.props.login(data._id);
+                this.props.history.push('/');
         });
     }
 
@@ -63,4 +67,4 @@ class Register extends Component {
 }
 
 //withRouter allows for redirect using history.push
-export default withRouter(Register);
+export default withRouter(withUserContext(Register));

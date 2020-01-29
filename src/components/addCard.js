@@ -1,25 +1,26 @@
 import React, {Component} from 'react';
+import {withUserContext} from '../components/wrappers/componentWrappers';
 import Navbar from './navbar/navbar';
 import '../resources/css/addCard.css';
 
-export default class AddCard extends Component {
-    constructor() {
-        super();
+class AddCard extends Component {
+    constructor(props) {
+        super(props);
 
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
 
         this.state = {
-            username: '',
             cardType: '',
             storeName: '',
             giftcardAmount: '',
             barcodeNumber: '',
-            pinNumber: ''
+            pinNumber: '',
+            storeColor: '',
+            logo: ''
         }
     }
 
-    //TODO santize input
     handleInputChange(e) {
         const target = e.target;
         const value = target.value;
@@ -32,12 +33,17 @@ export default class AddCard extends Component {
 
     handleSubmit(e) {
         e.preventDefault();
+        const colors = ['black', 'blue', 'red', 'green'];
+        let randomColor = '';
+        let num = Math.floor(Math.random() * Math.floor(4));
+        randomColor = colors[num];
         
-        const card = `username=${this.state.username}&cardType=${this.state.cardType}&storeName=${this.state.storeName}&amount=${this.state.giftcardAmount}&balance=${this.state.giftcardAmount}&barcode=${this.state.barcodeNumber}&pin=${this.state.pinNumber}`;
+        const card = `userID=${this.props.user}&cardType=${this.state.cardType}&storeName=${this.state.storeName}&amount=${this.state.giftcardAmount}&balance=${this.state.giftcardAmount}&barcode=${this.state.barcodeNumber}&pin=${this.state.pinNumber}&storeColor=${randomColor}`;
         
         fetch('http://localhost:5000/cards',{
             method: 'POST',
             headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+            credentials: 'include',
             body: card
         })
         .then( res => {
@@ -89,3 +95,5 @@ export default class AddCard extends Component {
         );
     }
 }
+
+export default withUserContext(AddCard);
