@@ -4,7 +4,8 @@ section {
 
 .storeWrapper {
     margin: .8rem;
-    padding: .8rem 1rem;
+    padding: 0 1rem;
+    text-align: center;
     width: 100%;
 }
 
@@ -16,6 +17,8 @@ section {
     text-align: center;
 }
 
+.storeWrapper h2,
 .storeWrapper span {
+    font-size: 1.5rem;
     font-weight: bold;
 }

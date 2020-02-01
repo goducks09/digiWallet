@@ -4,7 +4,6 @@ import logo from './logo.svg';
 import Homepage from './components/homePage';
 import './App.css';
 import AddCard from './components/addCard';
-import GitftcardHome from './components/homePage';
 import StoreList from './components/giftcards/index';
 import StorePage from './components/giftcards/show';
 import Transactions from './components/giftcards/cardTransactions';
@@ -18,6 +17,7 @@ export class App extends Component {
     super(props);
     this.state = {
         user: null,
+        username: null,
         isLoggedIn: false
     }
 
@@ -34,15 +34,17 @@ export class App extends Component {
         .then( data => {
             this.setState({
               user: data._id,
+              username: data.username,
               isLoggedIn: true
             });
         });
     }
   }
 
-  login(userID) {
+  login(userID, username) {
     this.setState({
       user: userID,
+      username: username,
       isLoggedIn: true
     });
   }
@@ -65,6 +67,7 @@ export class App extends Component {
   render() {
     const value = {
       user: this.state.user,
+      username: this.state.username,
       isLoggedIn: this.state.isLoggedIn,
       login: this.login,
       logout: this.logout

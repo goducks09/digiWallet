@@ -128,8 +128,8 @@ class StorePage extends Component {
                 <h2>Closest Location</h2>
                 <p>Google Maps</p>
 
-                <h2 onClick={this.handleEdit} className="button">Edit Card</h2>
-                <h2 onClick={this.handleDelete} className="button">Delete Card</h2>            
+                <button id="editButton" className="button"><h2 onClick={this.handleEdit}>Edit Card</h2></button>
+                <button id="deleteButton" className="button"><h2 onClick={this.handleDelete}>Delete Card</h2></button>
             </div>
             </React.Fragment>
         );

@@ -36,22 +36,26 @@ label {
 
 #logButton,
 #modalButton {
-    background-color: #66CC66;
-    border: 2px solid #66CC66;
+    background-color: #02c39a;
+    border: 2px solid #02c39a;
 }
 
-#logButton {
+#logButton,
+#editButton,
+#deleteButton {
     font-size: inherit;
 }
 
-#logButton h2 {
+#logButton h2,
+#editButton h2,
+#deleteButton h2 {
     font-size: inherit;
     margin: 0;
 }
 
 #transactionButton {
-    background-color: #FF8080;
-    border: 2px solid #FF8080;
+    background-color: #395662;
+    border: 2px solid #395662;
 }
 
 #barcode,

@@ -5,8 +5,8 @@ export const withUserContext = Component => {
     return props => {
       return (
         <UserContext.Consumer>
-          {({user, isLoggedIn, login, logout}) => {
-            return <Component {...props} user={user} isLoggedIn={isLoggedIn} login={login} logout={logout} />;
+          {({user, username, isLoggedIn, login, logout}) => {
+            return <Component {...props} user={user} username={username} isLoggedIn={isLoggedIn} login={login} logout={logout} />;
           }}
         </UserContext.Consumer>
       );

@@ -33,7 +33,7 @@ class AddCard extends Component {
 
     handleSubmit(e) {
         e.preventDefault();
-        const colors = ['black', 'blue', 'red', 'green'];
+        const colors = ['black', '#395662', '#4c212a', '#9b104e'];
         let randomColor = '';
         let num = Math.floor(Math.random() * Math.floor(4));
         randomColor = colors[num];

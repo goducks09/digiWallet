@@ -10,7 +10,7 @@ const Profile = props => {
             <div className="profileWrapper">
                 <section>
                     <h2>Username</h2>
-                    <span>{props.user}</span>
+                    <span>{props.username}</span>
                 </section>
                 <section>
                     <h2>Password</h2>
@@ -18,7 +18,7 @@ const Profile = props => {
                     <a href="#" className="button">Change</a>
                 </section>
                 <section>
-                    <h2>Location</h2>
+                    <h2>Location Tracking</h2>
                     <span>On</span>
                     <a href="#" className="button">Turn Off</a>
                 </section>

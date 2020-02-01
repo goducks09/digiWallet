@@ -1,7 +1,31 @@
 html {
-  font-size: 18px;
   margin: 0;
+  overflow-x: hidden;
   padding: 0;
+}
+
+h1 {
+  color: white;
+  font-size: 1.75em;
+  margin: 0;
+}
+
+img {
+  height: 1.5rem;
+  width: 1.5rem;
+}
+
+label {
+  font-weight: bold;
+}
+
+section {
+  text-align: center;
+}
+
+button:hover,
+input[type=submit]:hover {
+  cursor: pointer;
 }
 
 #root {
@@ -16,15 +40,6 @@ html {
 #loadingPage {
   background-color: #66cc66;
   color: white;
-}
-
-img {
-  height: 2rem;
-  width: 2rem;
-}
-
-section {
-  text-align: center;
 }
 
 #homePageList {
@@ -43,7 +58,7 @@ section {
 }
 
 #giftcardsList {
-  background-color: #66CC66;
+  background-color: #02c39a;
 }
 #rewardsList {
   background-color: #FFBA80;
@@ -57,4 +72,11 @@ section {
 #giftcardsList h2,
 #rewardsList h2 {
   margin: 0;
+}
+
+::-webkit-input-placeholder,
+::-moz-placeholder,
+:-moz-placeholder,
+:-ms-input-placeholder {
+  font-size: 100px;
 }

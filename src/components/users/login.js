@@ -39,7 +39,7 @@ class Login extends Component {
         })
         .then( res => res.json())
         .then( data => {
-            this.props.login(data._id);
+            this.props.login(data._id, data.username);
             this.props.history.push('/');
         });
     }
