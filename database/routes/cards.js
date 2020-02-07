@@ -74,7 +74,7 @@ router.put("/cards/:cardType/:id/edit", middleware.isLoggedIn, function(req, res
 		
 		Giftcard.findByIdAndUpdate(req.params.id, card, function(err, giftcard) {
 			if(err) {
-				console.log("Error: ", err);
+				res.send("Server error. Please try again.");
 			} else {
 				res.send("Card updated!");
 			}
@@ -87,7 +87,7 @@ router.put("/cards/:cardType/:id/edit", middleware.isLoggedIn, function(req, res
 		
 		RewardsCard.findByIdAndUpdate(req.params.id, card, function(err, rewardsCard) {
 			if(err) {
-				console.log("Error: ", err);
+				res.send("Server error. Please try again.");
 			} else {
 				res.send("Card updated!");
 			}
@@ -100,17 +100,17 @@ router.delete("/cards/:cardType/:id/delete", middleware.isLoggedIn, function(req
 	if(req.body.cardType === 'giftcard') {
 		Giftcard.findByIdAndRemove(req.params.id, function(err) {
 			if(err) {
-				res.send("Error: ", err);
+				res.send("Server error. Please try again.");
 			} else {
-				res.send("Deleted");
+				res.send("Card deleted!");
 			}
 		});
 	} else if (req.body.cardType === 'rewardsCard') {
 		RewardsCard.findByIdAndRemove(req.params.id, function(err) {
 			if(err) {
-				res.send("Error: ", err);
+				res.send("Server error. Please try again.");
 			} else {
-				res.send("Deleted");
+				res.send("Card deleted!");
 			}
 		});
 	}
@@ -173,17 +173,17 @@ router.post("/cards", middleware.isLoggedIn, function(req, res) {
 	if(newCard.cardType === "giftcard") {
 		Giftcard.create(newCard, function(err, card) {
 			if(err) {
-				console.log(err.errmsg);
+				res.send("Server error. Please try again.");
 			} else {
-				res.send("Success!");
+				res.send("Card added!");
 			}
 		});
 	} else {
 		RewardsCard.create(newCard, function(err, card) {
 			if(err) {
-				console.log(err.name);
+				res.send("Server error. Please try again.");
 			} else {
-				res.send("Success!");
+				res.send("Card added!");
 			}
 		});
 	}

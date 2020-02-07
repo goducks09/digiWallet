@@ -8,11 +8,11 @@ router.post('/register', function(req, res) {
 	let newUser = {username: req.body.username};
 	User.register(newUser, req.body.password, function(err, user) {
 		if(err) {
-			console.log(err.errmsg);
+			console.log(err);
 		}
 
 		passport.authenticate('local')(req, res, function() {
-			res.json(user)
+			res.json(user);
 		});
 	});
 });

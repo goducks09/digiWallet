@@ -15,7 +15,7 @@ class StorePage extends Component {
 
         this.handleModal = this.handleModal.bind(this);
         this.postTransaction = this.postTransaction.bind(this);
-        this.handleEdit = this.handleEdit.bind(this);
+        this.handleEditClick = this.handleEditClick.bind(this);
         this.handleDelete = this.handleDelete.bind(this);
     }
         
@@ -65,7 +65,7 @@ class StorePage extends Component {
         this.handleModal();
     }
 
-    handleEdit() {
+    handleEditClick() {
         let param;
         if(this.state.cardType === 'giftcard') {
             param = 'giftcards';
@@ -83,11 +83,19 @@ class StorePage extends Component {
             body: `cardType=${this.state.cardType}`
         }).then( res => {
             if(!res.ok) {
-                console.log("Error: ", res.status);
-                this.props.history.push(`/cards/${this.state.cardType}s/${this.state.cardInfo._id}`);
+                res.text().then(data => {
+                    this.props.history.push({
+                        pathname: `/cards/${this.state.cardType}s/${this.state.cardInfo._id}`,
+                        state: {message: data}
+                    });
+                });
             } else {
-                console.log(res);
-                this.props.history.push('/cards');
+                res.text().then(data => {
+                    this.props.history.push({
+                        pathname: `/cards/`,
+                        state: {message: data}
+                    });
+                });
             }
         });
     }
@@ -95,7 +103,7 @@ class StorePage extends Component {
     render() {
         return (
             <React.Fragment>
-            <Navbar heading={this.state.cardInfo.storeName} />
+            <Navbar heading={this.state.cardInfo.storeName} message={this.props.history.location.state ? this.props.history.location.state.message : null}/>
             <div className="pageWrapper">
                 <div id="modal" aria-hidden="true">
                     <div id="modalWrapper">
@@ -128,7 +136,7 @@ class StorePage extends Component {
                 <h2>Closest Location</h2>
                 <p>Google Maps</p>
 
-                <button id="editButton" className="button"><h2 onClick={this.handleEdit}>Edit Card</h2></button>
+                <button id="editButton" className="button"><h2 onClick={this.handleEditClick}>Edit Card</h2></button>
                 <button id="deleteButton" className="button"><h2 onClick={this.handleDelete}>Delete Card</h2></button>
             </div>
             </React.Fragment>

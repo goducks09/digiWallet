@@ -72,10 +72,19 @@ export default class EditCard extends Component {
             body: card
         }).then( res => {
             if(!res.ok) {
-                console.log("Error: ", res.status);
-                this.props.history.push(`/cards/${type}/${this.state.cardInfo._id}/edit`);
+                res.text().then(data => {
+                    this.props.history.push({
+                        pathname: `/cards/${type}/${this.state.cardInfo._id}/edit`,
+                        state: {message: data}
+                    });
+                });
             } else {
-                this.props.history.push({pathname:`/cards/${type}/${this.state.cardInfo._id}`, state: {cardInfo: this.state.cardInfo, cardType: this.state.cardType}});
+                res.text().then(data => {
+                    this.props.history.push({
+                        pathname:`/cards/${type}/${this.state.cardInfo._id}`,
+                        state: {cardInfo: this.state.cardInfo, cardType: this.state.cardType, message: data}
+                    });
+                });
             }
         });
     }

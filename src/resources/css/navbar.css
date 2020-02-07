@@ -37,3 +37,7 @@ li#hamburger:hover,
     background-color: #05668d;
     color: white;
 }
+
+#dropdown li a {
+    text-align: left;
+}

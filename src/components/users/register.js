@@ -38,22 +38,27 @@ class Register extends Component {
             body: user
         })
         .then( res => {
-            if(!res.ok) {
-                console.log("Error: ", res.status);
-                this.props.history.push('/register');
+            if(res.status === 401) {
+                res.text().then(data => {
+                    this.props.history.push({
+                        pathname: '/register',
+                        state: {message: "That username is already taken. Please choose a new one."}
+                    });
+                });
+            } else {
+                res.json().then( data => {
+                    this.props.login(data._id, data.username);
+                    this.props.history.push('/');
+                });
             }
-            return res.json();
-        })
-        .then( data => {
-                this.props.login(data._id);
-                this.props.history.push('/');
         });
+        
     }
 
     render() {
         return (
             <React.Fragment>
-                <Navbar heading="Register" />
+                <Navbar heading="Register" message={this.props.history.location.state ? this.props.history.location.state.message : null} />
                 <div className="formWrapper">
                     <form onSubmit={this.handleSubmit}>
                         <input onChange={this.handleInputChange} name="username" type="text" value={this.state.username} placeholder="username"/>

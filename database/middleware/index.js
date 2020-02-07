@@ -4,8 +4,7 @@ middlewareObj.isLoggedIn = function(req, res, next) {
 	if(req.isAuthenticated()) {
 		return next();
 	}
-    console.log("Login error. Pleaes try again.");
-    res.sendStatus(403);
+    res.status(403).send("Login error. Pleaes try again.");
 }
 
 module.exports = middlewareObj;

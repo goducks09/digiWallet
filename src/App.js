@@ -10,6 +10,7 @@ import Transactions from './components/giftcards/cardTransactions';
 import EditCard from './components/giftcards/edit';
 import Register from './components/users/register';
 import Login from './components/users/login';
+import Profile from './components/users/profile';
 export const UserContext = React.createContext();
 
 export class App extends Component {
@@ -18,7 +19,8 @@ export class App extends Component {
     this.state = {
         user: null,
         username: null,
-        isLoggedIn: false
+        isLoggedIn: false,
+        message: "You must login first"
     }
 
     this.login = this.login.bind(this);
@@ -26,18 +28,26 @@ export class App extends Component {
   }
 
   componentDidMount(prevProps, prevState) {
-    if (this.state !== prevState) {
+    if (prevState && this.state !== prevState) {
+      console.log("authenticating");
       fetch('http://localhost:5000/authenticate', {
             credentials: 'include'
         })
-        .then( res => res.json())
+        .then( res => {
+          if(res.status !== 200) {
+            this.setState({message: "You must login"});
+            throw new Error("You must login");
+          }
+          return res.json();
+        })
         .then( data => {
             this.setState({
               user: data._id,
               username: data.username,
               isLoggedIn: true
             });
-        });
+        })
+        .catch( err => console.log(err));
     }
   }
 
@@ -54,11 +64,11 @@ export class App extends Component {
         credentials: 'include'
     })
     .then( res => {
-      console.log(res);
       if(res.ok) {
         this.setState({
           user: null,
-          isLoggedIn: false
+          isLoggedIn: false,
+          message: "You have successfully logged out"
         });
       }
     })
@@ -72,29 +82,39 @@ export class App extends Component {
       login: this.login,
       logout: this.logout
     }
-
-    return (
-      <UserContext.Provider value={value}> 
-        <React.Fragment>
-            <Switch>
-              <Route path='/' exact component={Homepage} />
-              <Route path='/register' component={Register} />
-              <Route path='/login' component={Login} />
-              <Route path='/profile' component={Login} />
-              <Route path='/cards/giftcards/:id/transactions' component={Transactions} />
-              <Route path='/cards/giftcards/:id/edit' component={EditCard}/>
-              <Route path='/cards/giftcards/:id' component={StorePage} />
-              <Route path='/cards/giftcards' component={StoreList} />
-              <Route path='/cards/rewards/:id/edit' component={EditCard}/>
-              <Route path='/cards/rewards/:id' component={StorePage} />
-              <Route path='/cards/rewards' component={StoreList} />
-              <Route path='/cards/new' component={AddCard} />
-              <Route path='/cards' component={Homepage} />
-              {/* <Route component={Default} /> */}
-              <Redirect to='/login' />
-            </Switch>
-        </React.Fragment>
-      </UserContext.Provider>
-    );
+    if(this.state.isLoggedIn) {
+      return (
+        <UserContext.Provider value={value}> 
+          <React.Fragment>
+              <Switch>
+                <Route path='/' exact component={Homepage} />
+                <Route path='/login' component={Login} />
+                <Route path='/profile' component={Profile} />
+                <Route path='/cards/giftcards/:id/transactions' component={Transactions} />
+                <Route path='/cards/giftcards/:id/edit' component={EditCard}/>
+                <Route path='/cards/giftcards/:id' component={StorePage} />
+                <Route path='/cards/giftcards' component={StoreList} />
+                <Route path='/cards/rewards/:id/edit' component={EditCard}/>
+                <Route path='/cards/rewards/:id' component={StorePage} />
+                <Route path='/cards/rewards' component={StoreList} />
+                <Route path='/cards/new' component={AddCard} />
+                <Route path='/cards' component={Homepage} />
+                {/* <Route component={Default} /> */}
+                <Redirect to='/' />
+              </Switch>
+          </React.Fragment>
+        </UserContext.Provider>
+      );
+    } else {
+      return (
+        <UserContext.Provider value={value}>
+          <Switch>
+            <Route path='/login' component={Login} />
+            <Route path='/register' component={Register} />
+            <Redirect to={{pathname:'/login', state: {message: this.state.message}}}/>
+          </Switch>
+        </UserContext.Provider>
+      );
+    }
   }
 }

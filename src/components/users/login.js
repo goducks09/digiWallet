@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import Navbar from '../navbar/navbar';
-import Profile from './profile';
 import {withUserContext} from '../../components/wrappers/componentWrappers';
 
 class Login extends Component {
@@ -17,7 +16,19 @@ class Login extends Component {
         this.handleInputChange = this.handleInputChange.bind(this);
     }
     
-    
+    componentDidMount() {
+        let message;
+        if(this.props.location.state !== undefined) {
+            message = this.props.location.state.message;
+        } else if (this.props.message) {
+            message = this.props.message;
+        } else {
+            message = null;
+        }
+
+        this.setState({message: message});
+    }
+
     handleInputChange(e) {
         const value = e.target.value;
         const name = e.target.name;
@@ -37,26 +48,34 @@ class Login extends Component {
             credentials: 'include',
             body: user
         })
-        .then( res => res.json())
-        .then( data => {
-            this.props.login(data._id, data.username);
-            this.props.history.push('/');
+        .then( res => {
+            if(res.ok) {
+                res.json().then( data => {
+                    this.props.login(data._id, data.username);
+                    this.props.history.push('/');
+                });
+            } else {
+                if(res.status === 401) {
+                 this.setState({message: "Your username or password did not match. Please try again."});
+                }
+            }
         });
     }
 
     render() {
+        
+
         return (
             <React.Fragment>
             {
                 this.props.isLoggedIn ?
-                    <Profile />
+                    <Redirect to='/profile' />
                 
                 :
 
                     //else show button to Signup or Login
                     <React.Fragment>
-                        <Navbar heading="Welcome" />
-
+                        <Navbar heading="Welcome" message={this.state.message}/>
                         <main>
                             <div className="formWrapper">
                                 <h2>Login</h2>

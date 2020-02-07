@@ -1,5 +1,6 @@
 const express = require('express'),
       expressSession = require('express-session'),
+      flash = require('connect-flash'),
       mongoose = require('mongoose'),
       bodyParser = require('body-parser'),
       passport = require('passport'),
@@ -9,7 +10,7 @@ const express = require('express'),
       indexRoutes = require('./routes/index'),
       cardRoutes = require('./routes/cards');
 require('dotenv').config();
-
+//TODO add flash messages
 //Connect to MongoDB server
 mongoose.connect(process.env.ATLAS_URI, {
     useNewUrlParser: true,
@@ -24,6 +25,7 @@ mongoose.connect(process.env.ATLAS_URI, {
 //App settings
 app.use(bodyParser.urlencoded({extended: true}));
 mongoose.set('useFindAndModify', false);
+app.use(flash());
 
 //Passport authentication settings
 app.use(expressSession({
@@ -31,6 +33,7 @@ app.use(expressSession({
   resave: false,
   saveUninitialized: false
 }));
+
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -56,6 +59,7 @@ app.use((req, res, next) => {
       "Access-Control-Allow-Credentials",
       "true"
     );
+	  
     next();
   });
 

@@ -10,6 +10,10 @@ h1 {
   margin: 0;
 }
 
+a {
+  text-align: center;
+}
+
 img {
   height: 1.5rem;
   width: 1.5rem;
@@ -26,6 +30,15 @@ section {
 button:hover,
 input[type=submit]:hover {
   cursor: pointer;
+}
+
+.message {
+  background-color: #02c39a;
+  border-radius: 5px;
+  color: white;
+  font-weight: bold;
+  max-width: 95%;
+  padding: .6em 0;
 }
 
 #root {

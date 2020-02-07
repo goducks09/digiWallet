@@ -48,11 +48,13 @@ class AddCard extends Component {
         })
         .then( res => {
             if(!res.ok) {
-                console.log("Error: ", res.status);
-                this.props.history.push('/cards/new');
+                res.text().then(data => {
+                    this.props.history.push({pathname: '/cards/new', state: {message: data}});
+                });
             } else {
-                console.log(res);
-                this.props.history.push('/cards');
+                res.text().then(data => {
+                    this.props.history.push({pathname: '/cards', state: {message: data}});
+                });
             }
         });
     }

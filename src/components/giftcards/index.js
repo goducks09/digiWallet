@@ -11,46 +11,26 @@ class StoreList extends Component {
         this.state = {
             giftcards: [],
             rewardsCards: [],
-            fetch: false
+            fetch: false,
+            message: null
         }
     }
-
-    // componentDidMount() {
-    //     fetch('http://localhost:5000/cards')
-    //     .then(res => res.json())
-    //     .catch(err => console.log("Server error: ", err))
-    //     .then(data => {
-    //         console.log(data);
-    //         const giftcards = data.giftcards.map(card => {
-    //             return {
-    //                 storeName: card.storeName,
-    //                 amount: card.amount,
-    //                 barcode: card.barcode,
-    //                 pin: card.pin
-    //             }
-    //         });
-    //         const rewardsCards = data.rewardsCards.map(card => {
-    //             return {
-    //                 storeName: card.storeName,
-    //                 barcode: card.barcode
-    //             }
-    //         });
-            
-    //         this.setState({
-    //             giftcards: giftcards,
-    //             rewardsCards: rewardsCards
-    //         });
-    //         console.log("State :", this.state);
-    //     })
-    //     .catch(err => console.log("Page error: ", err));
-    // }
 
     componentDidMount() {
         fetch('http://localhost:5000/cards', {
             credentials: "include"
         })
-        .then(res => res.json())
-        .catch(err => console.log("Server error: ", err))
+        .then(res => {
+            if(res.status === 403) {
+                this.setState({message: "You must login first"});
+                throw new Error("You must login");
+            }
+            return res.json();
+        })
+        .catch(err => {
+            console.log("Server error: ", err);
+            this.props.history.push({pathname: '/login', state: {message: this.state.message}});
+        })
         .then(data => {
             this.setState({
                 giftcards: data.giftcards,

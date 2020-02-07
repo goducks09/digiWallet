@@ -58,7 +58,7 @@ class Homepage extends Component {
        
         return (
             <React.Fragment>
-                <Navbar heading="Categories" />
+                <Navbar heading="Categories" message={this.props.history.location.state ? this.props.history.location.state.message : null} />
                 {body}
                 <section id="homePageList">
                     {this.state.numberGiftcards > 0 &&
