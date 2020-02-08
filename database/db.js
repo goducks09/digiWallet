@@ -1,16 +1,17 @@
 const express = require('express'),
       expressSession = require('express-session'),
-      flash = require('connect-flash'),
       mongoose = require('mongoose'),
       bodyParser = require('body-parser'),
       passport = require('passport'),
       LocalStrategy = require('passport-local'),
       app = express(),
+      path = require('path'),
       User = require('./models/user'),
       indexRoutes = require('./routes/index'),
-      cardRoutes = require('./routes/cards');
+      cardRoutes = require('./routes/cards'),
+      port = process.env.PORT || 5000;
 require('dotenv').config();
-//TODO add flash messages
+
 //Connect to MongoDB server
 mongoose.connect(process.env.ATLAS_URI, {
     useNewUrlParser: true,
@@ -25,7 +26,6 @@ mongoose.connect(process.env.ATLAS_URI, {
 //App settings
 app.use(bodyParser.urlencoded({extended: true}));
 mongoose.set('useFindAndModify', false);
-app.use(flash());
 
 //Passport authentication settings
 app.use(expressSession({
@@ -66,8 +66,16 @@ app.use((req, res, next) => {
 app.use(indexRoutes);
 app.use(cardRoutes);
 
+//Serve static files if in production
+if(process.env.NODE_ENV === 'production') {
+  app.use(express.static('build'));
+  
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'build', 'index.html'));
+  });
+}
 
 //Start server
-app.listen(5000, () => {
+app.listen(port, () => {
     console.log('Server started port 5000');
 });

@@ -65,7 +65,7 @@ export default class EditCard extends Component {
             card += `&amount=${this.state.cardInfo.amount}&balance=${newBalance}&pin=${this.state.cardInfo.pin}`;
         }
         
-        fetch(`http://localhost:5000/cards/${type}/${this.state.cardInfo._id}/edit`, {
+        fetch(`/cards/${type}/${this.state.cardInfo._id}/edit`, {
             method: 'PUT',
             headers: {'Content-Type': 'application/x-www-form-urlencoded'},
             credentials: 'include',

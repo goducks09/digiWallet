@@ -31,7 +31,7 @@ class Register extends Component {
         
         const user = `username=${this.state.username}&password=${this.state.password}`;
         
-        fetch('http://localhost:5000/register',{
+        fetch('/register',{
             method: 'POST',
             headers: {'Content-Type': 'application/x-www-form-urlencoded'},
             credentials: "include",

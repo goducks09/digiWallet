@@ -40,7 +40,7 @@ class StorePage extends Component {
             balance -= amount;
             const transaction = `amount=${amount}&balance=${balance}`;
 
-            await fetch(`http://localhost:5000/cards/giftcards/${this.state.cardInfo._id}`, {
+            await fetch(`/cards/giftcards/${this.state.cardInfo._id}`, {
                 method: 'PUT',
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'},
                 credentials: "include",
@@ -51,7 +51,7 @@ class StorePage extends Component {
             });
 
             const get =
-                await fetch(`http://localhost:5000/cards/giftcards/${this.state.cardInfo._id}`, {
+                await fetch(`/cards/giftcards/${this.state.cardInfo._id}`, {
                     credentials: "include"
                 })
                 .catch(err => console.log("Error: ", err));
@@ -76,7 +76,7 @@ class StorePage extends Component {
     }
 
     handleDelete() {
-        fetch(`http://localhost:5000/cards/${this.state.cardType}s/${this.state.cardInfo._id}/delete`, {
+        fetch(`/cards/${this.state.cardType}s/${this.state.cardInfo._id}/delete`, {
             method: 'DELETE',
             headers: {'Content-Type': 'application/x-www-form-urlencoded'},
             credentials: 'include',

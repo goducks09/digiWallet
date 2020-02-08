@@ -27,10 +27,10 @@ export class App extends Component {
     this.logout = this.logout.bind(this);
   }
 
+  //if page is refreshed, check if the user is logged in
   componentDidMount(prevProps, prevState) {
-    if (prevState && this.state !== prevState) {
-      console.log("authenticating");
-      fetch('http://localhost:5000/authenticate', {
+    if (this.state !== prevState) {
+      fetch('/authenticate', {
             credentials: 'include'
         })
         .then( res => {
@@ -60,7 +60,7 @@ export class App extends Component {
   }
 
   logout() {
-    fetch('http://localhost:5000/logout', {
+    fetch('/logout', {
         credentials: 'include'
     })
     .then( res => {
@@ -88,7 +88,6 @@ export class App extends Component {
           <React.Fragment>
               <Switch>
                 <Route path='/' exact component={Homepage} />
-                <Route path='/login' component={Login} />
                 <Route path='/profile' component={Profile} />
                 <Route path='/cards/giftcards/:id/transactions' component={Transactions} />
                 <Route path='/cards/giftcards/:id/edit' component={EditCard}/>

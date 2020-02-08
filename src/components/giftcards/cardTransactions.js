@@ -14,7 +14,7 @@ class Transactions extends Component {
     }
 
     componentDidMount() {
-        fetch(`http://localhost:5000/cards/giftcards/${this.props.match.params.id}/transactions`, {
+        fetch(`/cards/giftcards/${this.props.match.params.id}/transactions`, {
             credentials: "include"
         })
         .then(res => res.json())

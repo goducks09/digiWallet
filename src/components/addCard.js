@@ -40,7 +40,7 @@ class AddCard extends Component {
         
         const card = `userID=${this.props.user}&cardType=${this.state.cardType}&storeName=${this.state.storeName}&amount=${this.state.giftcardAmount}&balance=${this.state.giftcardAmount}&barcode=${this.state.barcodeNumber}&pin=${this.state.pinNumber}&storeColor=${randomColor}`;
         
-        fetch('http://localhost:5000/cards',{
+        fetch('/cards',{
             method: 'POST',
             headers: {'Content-Type': 'application/x-www-form-urlencoded'},
             credentials: 'include',

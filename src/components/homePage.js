@@ -16,7 +16,7 @@ class Homepage extends Component {
     }
 
     componentDidMount() {
-        fetch('http://localhost:5000/cards', {
+        fetch('/cards', {
             credentials: "include"
         })
         .then(res => {

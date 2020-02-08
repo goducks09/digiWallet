@@ -42,7 +42,7 @@ class Login extends Component {
         e.preventDefault();
         const user = `username=${this.state.username}&password=${this.state.password}`;
 
-        fetch('http://localhost:5000/login',{
+        fetch('/login',{
             method: 'POST',
             headers: {'Content-Type': 'application/x-www-form-urlencoded'},
             credentials: 'include',
