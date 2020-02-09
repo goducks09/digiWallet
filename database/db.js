@@ -45,7 +45,7 @@ passport.deserializeUser(User.deserializeUser());
 app.use((req, res, next) => {
     res.header(
       "Access-Control-Allow-Origin",
-      "http://localhost:3000"
+      "https://radiant-crag-56357.herokuapp.com"
     );
     res.header(
       "Access-Control-Allow-Headers",
@@ -68,14 +68,14 @@ app.use(cardRoutes);
 
 //Serve static files if in production
 if(process.env.NODE_ENV === 'production') {
-  app.use(express.static('build'));
+  app.use(express.static('/app/build'));
   
   app.get('*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, 'build', 'index.html'));
+    res.sendFile(path.join('/', 'app', 'build', 'index.html'));
   });
 }
 
 //Start server
 app.listen(port, () => {
-    console.log('Server started port 5000');
+    console.log('Server started!');
 });
