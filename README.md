@@ -7,3 +7,5 @@ In building the application, I was able to learn new functionalities and process
 Being my first full-stack application, I ran into roadblocks on a few occasions that required me to research and troubleshoot new concepts, such as user authentication. I was able to work through these issues and had a full-stack application ready to be deployed! To stick with the theme of learning new technologies for this project, I decided to deploy my application using Heroku. It was my first time using it, and after solving a few issues, I was able to succesfully have it up and running.
 
 While the application has been deployed, there are updates that would need to be made for it to be production ready. Currently, the card information is stored to the database without being encrypted. I do use encryption for user information, so I will likely extend this logic to the stored card information.
+
+Check out the app at https://digi-wallet.herokuapp.com/!
