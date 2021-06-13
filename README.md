@@ -1,72 +1,11 @@
-To start dev:
-### npm start
-### node db.js in src/database
+After taking multiple courses on front-end, back-end, and full-stack applications, I decided to try my hand at a full-stack application on my own. I wanted to create a project that could have real-world application, and I decided on a digital wallet for giftcards. With my experience using Javascript and React, I decided to use the MERN (MongoDB, Express, React, Node) stack to build the application.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This application uses MongoDB Atlas to store users and cards. I used Mongoose schema to easily model the data for the database, and ExpressJS for defining the routes and middleware. The front-end was built using React.
 
-## Available Scripts
+In building the application, I was able to learn new functionalities and processes. One of these was React Context. The wallet application requires user authentication to access most routes. During development, I found that the authentication credentials were being lost while navigating, breaking the application. After researching, I found React Context which allows data to be accessed by any component without having to pass it through props. This allowed me to store the authentication information during navigation without having to implement a state store like Redux.
 
-In the project directory, you can run:
+Being my first full-stack application, I ran into roadblocks on a few occasions that required me to research and troubleshoot new concepts, such as user authentication. I was able to work through these issues and had a full-stack application ready to be deployed! To stick with the theme of learning new technologies for this project, I decided to deploy my application using Heroku. It was my first time using it, and after solving a few issues, I was able to succesfully have it up and running.
 
-### `npm start`
+While the application has been deployed, there are updates that would need to be made for it to be production ready. Currently, the card information is stored to the database without being encrypted. I do use encryption for user information, so I will likely extend this logic to the stored card information.
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+Check out the app at https://digi-wallet.herokuapp.com/!
