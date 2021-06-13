@@ -45,7 +45,7 @@ passport.deserializeUser(User.deserializeUser());
 app.use((req, res, next) => {
     res.header(
       "Access-Control-Allow-Origin",
-      "https://localhost:3000"
+      "https://radiant-crag-56357.herokuapp.com"
     );
     res.header(
       "Access-Control-Allow-Headers",
