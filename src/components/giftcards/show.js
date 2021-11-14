@@ -126,9 +126,9 @@ class StorePage extends Component {
                         <h2 id="balance">
                             Remaining Balance: ${this.state.cardInfo.balance}
                         </h2>
-                        <button onClick={this.handleModal} id="logButton" className="button"><h2>Log Purchase</h2></button>
+                        <button onClick={this.handleModal} id="logButton" className="button button-shadow"><h2>Log Purchase</h2></button>
                         <Link to={`/cards/giftcards/${this.state.cardInfo._id}/transactions`}>
-                            <h2 id="transactionButton" className="button">Transaction History</h2>
+                            <h2 id="transactionButton" className="button button-shadow">Transaction History</h2>
                         </Link>
                     </React.Fragment>
                 }
@@ -136,8 +136,8 @@ class StorePage extends Component {
                 <h2>Closest Location</h2>
                 <p>Google Maps</p>
 
-                <button id="editButton" className="button"><h2 onClick={this.handleEditClick}>Edit Card</h2></button>
-                <button id="deleteButton" className="button"><h2 onClick={this.handleDelete}>Delete Card</h2></button>
+                <button id="editButton" className="button button-shadow"><h2 onClick={this.handleEditClick}>Edit Card</h2></button>
+                <button id="deleteButton" className="button button-shadow"><h2 onClick={this.handleDelete}>Delete Card</h2></button>
             </div>
             </React.Fragment>
         );

@@ -3,6 +3,7 @@ section {
 }
 
 .storeWrapper {
+    border-radius: 8px;
     margin: .8rem;
     padding: 0 1rem;
     text-align: center;

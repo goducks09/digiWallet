@@ -58,7 +58,7 @@ class StoreList extends Component {
 
                     this.state.giftcards.map(card => {
                         return (
-                            <div className="storeWrapper" style={card.storeColor ? {'backgroundColor':card.storeColor} : {'backgroundColor':'#FFBA80'}}>
+                            <div className="storeWrapper button-shadow" style={card.storeColor ? {'backgroundColor':card.storeColor} : {'backgroundColor':'#FFBA80'}}>
                                 <Link to={{pathname: `/cards/giftcards/${card._id}`, state: {cardInfo: card, cardType: 'giftcard'}}}>
                                     {card.logo ? <img src={card.logo} alt="Store logo"></img> : <img src={defaultStore} alt="Default store icon"></img>}
                                     <h2>{card.storeName}</h2>
@@ -72,7 +72,7 @@ class StoreList extends Component {
 
                     this.state.rewardsCards.map(card => {
                         return (
-                            <div className="storeWrapper" style={card.storeColor ? {'backgroundColor':card.storeColor} : {'backgroundColor':'#FFBA80'}}>
+                            <div className="storeWrapper button-shadow" style={card.storeColor ? {'backgroundColor':card.storeColor} : {'backgroundColor':'#FFBA80'}}>
                                 <Link to={{pathname: `/cards/rewards/${card._id}`, state: {cardInfo: card, cardType: 'rewardsCard'}}}>
                                     {card.logo ? <img src={card.logo} alt="Store logo"></img> : <img src={defaultStore} alt="Default store icon"></img>}
                                     <h2>{card.storeName}</h2>

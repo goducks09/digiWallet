@@ -62,14 +62,14 @@ class Homepage extends Component {
                 {body}
                 <section id="homePageList">
                     {this.state.numberGiftcards > 0 &&
-                    <Link id="giftcardsList" to={{pathname: '/cards/giftcards', state: {showGiftcards: true}}}>
+                    <Link id="giftcardsList" className="button-shadow" to={{pathname: '/cards/giftcards', state: {showGiftcards: true}}}>
                         <h2>Giftcards</h2>
                         <span>{this.state.numberGiftcards}</span>
                     </Link>
                     }
 
                     {this.state.numberRewardsCards > 0 &&
-                        <Link id="rewardsList" to={{pathname: '/cards/rewards', state: {showRewards: true}}}>
+                        <Link id="rewardsList" className="button-shadow" to={{pathname: '/cards/rewards', state: {showRewards: true}}}>
                             <h2>Rewards Cards</h2>
                             <span>{this.state.numberRewardsCards}</span>
                         </Link>

@@ -20,7 +20,7 @@ export class App extends Component {
         user: null,
         username: null,
         isLoggedIn: false,
-        message: "You must login first"
+        message: null
     }
 
     this.login = this.login.bind(this);
